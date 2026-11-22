@@ -1,0 +1,355 @@
+// ワクワク演出の共通スタイル（wakuwaku.ts とセット）。
+// アプリ側で :root { --waku-accent: <ブランド色>; } を指定する。
+.waku-rank {
+  background: var(--waku-surface, #fff);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+  &__top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  &__lv {
+    display: inline-block;
+    margin-right: 6px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    background: var(--waku-accent, #d35400);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  &__xp {
+    font-size: 12px;
+    opacity: 0.7;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__bar {
+    height: 10px;
+    margin: 10px 0 6px;
+    border-radius: 999px;
+    background: rgba(127, 127, 127, 0.18);
+    overflow: hidden;
+  }
+
+  &__fill {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: 999px;
+    background: var(--waku-accent, #d35400);
+    transition: width 0.6s ease;
+  }
+
+  &__next {
+    font-size: 12px;
+    opacity: 0.75;
+  }
+}
+
+// ---- ガチャ ----
+.waku-gacha {
+  background: var(--waku-surface, #fff);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  text-align: center;
+
+  &__lead {
+    margin: 0 0 12px;
+    font-size: 13px;
+    opacity: 0.75;
+  }
+
+  &__draw {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 22px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--waku-accent, #d35400);
+    color: #fff;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  &__odds {
+    margin: 10px 0 0;
+    font-size: 12px;
+    opacity: 0.6;
+  }
+}
+
+.waku-card {
+  margin: 14px 0 4px;
+  padding: 16px 14px;
+  border-radius: 14px;
+  border: 2px solid var(--waku-rarity, #b9a99a);
+  background: var(--waku-rarity-bg, #faf6f2);
+  text-align: center;
+  animation: waku-reveal 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+
+  &--common {
+    --waku-rarity: #b9a99a;
+    --waku-rarity-bg: rgba(185, 169, 154, 0.12);
+  }
+
+  &--rare {
+    --waku-rarity: #2e86de;
+    --waku-rarity-bg: rgba(46, 134, 222, 0.1);
+  }
+
+  &--super {
+    --waku-rarity: #e0a800;
+    --waku-rarity-bg: rgba(255, 224, 130, 0.28);
+    box-shadow: 0 0 0 3px rgba(224, 168, 0, 0.18), 0 6px 18px rgba(224, 168, 0, 0.25);
+  }
+
+  &__rarity {
+    display: inline-block;
+    margin-bottom: 6px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: var(--waku-rarity);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+  }
+
+  &__text {
+    margin: 6px 0 0;
+    font-size: 13px;
+    line-height: 1.7;
+    opacity: 0.85;
+    overflow-wrap: anywhere;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+}
+
+@keyframes waku-reveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) rotate(-6deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+// ---- 図鑑 ----
+.waku-dex {
+  &__summary {
+    margin: 0 0 10px;
+    font-size: 13px;
+    opacity: 0.8;
+  }
+
+  &__group {
+    margin-bottom: 14px;
+  }
+
+  &__label {
+    margin: 0 0 6px;
+    font-size: 12px;
+    font-weight: 700;
+    opacity: 0.7;
+  }
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  &__item {
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(127, 127, 127, 0.3);
+    font-size: 12px;
+    line-height: 1.2;
+    opacity: 0.55;
+
+    &.is-found {
+      border-color: var(--waku-accent, #d35400);
+      background: var(--waku-accent, #d35400);
+      color: #fff;
+      font-weight: 700;
+      opacity: 1;
+    }
+  }
+}
+
+// ---- 紙吹雪 ----
+.waku-confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  overflow: hidden;
+
+  &__piece {
+    position: absolute;
+    top: -12px;
+    left: var(--x);
+    width: 9px;
+    height: 14px;
+    border-radius: 2px;
+    opacity: 0;
+    animation: waku-fall 1.5s ease-in var(--delay) forwards;
+  }
+}
+
+@keyframes waku-fall {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), 105vh) rotate(var(--rot));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waku-card {
+    animation: none;
+  }
+
+  .waku-rank__fill {
+    transition: none;
+  }
+}
+
+// ---- お祝いポップアップ ----
+.waku-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.45);
+
+  &__box {
+    width: 100%;
+    max-width: 320px;
+    padding: 28px 22px 22px;
+    border-radius: 18px;
+    background: var(--waku-surface, #fff);
+    text-align: center;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    animation: waku-reveal 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  &__text {
+    margin: 8px 0 18px;
+    font-size: 14px;
+    line-height: 1.7;
+    opacity: 0.85;
+  }
+
+  &__btn {
+    min-height: 44px;
+    padding: 0 28px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--waku-accent, #d35400);
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waku-popup__box {
+    animation: none;
+  }
+}
+
+// ---- 行の表示（自己ベスト・比較） ----
+.waku-growth,
+.waku-pb {
+  background: var(--waku-surface, #fff);
+  border-radius: 16px;
+  padding: 6px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.waku-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(127, 127, 127, 0.18);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &__label {
+    font-weight: 700;
+    overflow-wrap: anywhere;
+  }
+
+  &__value {
+    font-weight: 700;
+    color: var(--waku-accent, #d35400);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__extra {
+    grid-column: 1 / -1;
+    font-size: 12px;
+    opacity: 0.65;
+  }
+}
+
+.waku-note {
+  margin: 0;
+  padding: 10px 0;
+  font-size: 13px;
+  line-height: 1.7;
+  opacity: 0.75;
+}

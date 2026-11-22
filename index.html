@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J41Z0NHW20"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-J41Z0NHW20', { 'app_name': 'maeyori-cho' });
+  </script>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1abc9c">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>まえより前進積み重ね帳</title>
+  <meta name="description" content="昨日よりも何か改善・解決・成長したことを、毎日ワンタップでチェックして積み重ねるアプリ。カレンダーと一覧でいつでも見返せて、累計・連続日数・称号・積み重ねの壁で成長が見え、達成感を実感できます。">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <meta property="og:title" content="まえより前進積み重ね帳">
+  <meta property="og:description" content="昨日より、ちょっと前へ。改善・解決・成長を毎日チェックして積み重ね、成長を見える化するアプリ。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="__URL__/ogp.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="__URL__/ogp.png">
+  <!-- ime-enter-guard v2: 日本語入力の変換確定のEnterで、フォーム送信やアプリのEnter処理が動かないようにする。キー自体は止めない（Safariは変換中のkeydownをpreventDefaultすると変換を確定できなくなるため）。代わりにアプリ側のEnter処理への伝播を止め、その直後のsubmitを取り消す -->
+  <script>(function(){var c=false,t=0,k=0;addEventListener('compositionstart',function(){c=true},true);addEventListener('compositionend',function(){c=false;t=Date.now()},true);addEventListener('keydown',function(e){if(e.key!=='Enter')return;if(!(c||e.isComposing||e.keyCode===229||Date.now()-t<100))return;k=Date.now();e.stopImmediatePropagation()},true);addEventListener('submit',function(e){if(c||Date.now()-k<500){e.preventDefault();e.stopImmediatePropagation()}},true)})();</script>
+</head>
+<body>
+
+  <!-- ログイン画面 -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-card">
+      <span class="login-card__logo"><svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 50 H22 V41 H32 V32 H42 V23 H52 V50 Z"/><path d="M47 23 V10"/><path d="M47 10 L55 13.5 L47 17"/></svg></span>
+      <h1 class="login-card__title">まえより前進積み重ね帳</h1>
+      <p class="login-card__tagline">昨日より、ちょっと前へ。<br>改善・解決・成長を毎日チェックして積み重ねよう。</p>
+      <button id="btn-google-login" class="google-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+        </svg>
+        Googleでログイン
+      </button>
+    </div>
+  </div>
+
+  <div id="app" class="hidden">
+    <header class="app-header">
+      <span class="app-header__brand"><svg width="28" height="28" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-7px"><path d="M12 50 H22 V41 H32 V32 H42 V23 H52 V50 Z"/><path d="M47 23 V10"/><path d="M47 10 L55 13.5 L47 17"/></svg> まえより帳</span>
+      <nav class="app-header__nav">
+        <a href="about.html" class="app-header__about-link">アプリについて</a>
+        <div id="user-info" class="app-header__user hidden">
+          <img id="user-avatar" class="app-header__avatar" src="" alt="" />
+          <span id="user-name" class="app-header__name"></span>
+          <button id="btn-logout" class="btn btn--ghost btn--sm">ログアウト</button>
+        </div>
+      </nav>
+    </header>
+
+    <div class="tabs-bar">
+      <div class="tabs" role="tablist">
+        <button type="button" class="tabs__btn is-active" role="tab" data-tab="home" aria-selected="true">きょう</button>
+        <button type="button" class="tabs__btn" role="tab" data-tab="look" aria-selected="false">ふりかえり</button>
+        <button type="button" class="tabs__btn" role="tab" data-tab="grow" aria-selected="false">せいちょう</button>
+      </div>
+    </div>
+
+    <main class="app-main">
+
+      <!-- きょう -->
+      <section class="panel" data-panel="home">
+        <div class="today-hero">
+          <p class="today-hero__date" id="today-date"></p>
+          <h2 class="today-hero__title">きのうより、前進したことは？</h2>
+          <p class="today-hero__desc">ちょっとしたことで大丈夫。あてはまるものをタップして記録しましょう</p>
+          <div class="kind-picks" id="kind-picks"></div>
+        </div>
+
+        <div class="section">
+          <div class="section__head">
+            <h3 class="section__title">きょうの前進 <span class="section__count" id="today-count"></span></h3>
+          </div>
+          <div id="today-list" class="step-list"></div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-card"><div class="stat-card__value" id="stat-total">0</div><div class="stat-card__label">これまでの前進</div></div>
+          <div class="stat-card"><div class="stat-card__value" id="stat-streak">0</div><div class="stat-card__label">連続（日）</div></div>
+          <div class="stat-card"><div class="stat-card__value" id="stat-month">0</div><div class="stat-card__label">今月</div></div>
+        </div>
+
+        <div id="rank-card" class="waku-rank section"></div>
+
+        <div class="section">
+          <div class="section__head">
+            <h3 class="section__title">あの日の前進</h3>
+            <p class="section__desc">少し前の自分は、こんな前進をしていました</p>
+          </div>
+          <div id="lookback-list" class="lookback-list"></div>
+        </div>
+
+        <div class="section">
+          <div class="section__head">
+            <h3 class="section__title">ふりかえりガチャ</h3>
+            <p class="section__desc">これまでの前進から、1つをランダムに出します</p>
+          </div>
+          <div id="gacha-box" class="waku-gacha"></div>
+        </div>
+      </section>
+
+      <!-- ふりかえり -->
+      <section class="panel hidden" data-panel="look">
+        <div class="cal-head">
+          <button type="button" id="btn-prev-month" class="btn btn--ghost btn--sm" aria-label="前の月">←</button>
+          <h2 class="cal-head__title" id="cal-title"></h2>
+          <button type="button" id="btn-next-month" class="btn btn--ghost btn--sm" aria-label="次の月">→</button>
+        </div>
+        <div id="calendar" class="calendar"></div>
+        <p class="cal-summary" id="cal-summary"></p>
+
+        <div class="section">
+          <div class="section__head section__head--row">
+            <h3 class="section__title" id="look-title">この月の前進 <span class="section__count" id="look-count"></span></h3>
+            <button type="button" id="btn-add-past" class="btn btn--ghost btn--sm">＋ 前の日を記録</button>
+          </div>
+          <div id="kind-filter" class="filter-chips"></div>
+          <div id="area-filter" class="filter-chips filter-chips--examples"></div>
+          <div id="look-list" class="step-list section"></div>
+        </div>
+      </section>
+
+      <!-- せいちょう -->
+      <section class="panel hidden" data-panel="grow">
+        <div class="section">
+          <div class="section__head">
+            <h2 class="section__title section__title--lg">積み重ねの壁</h2>
+            <p class="section__desc">前進1つが、ブロック1つ。記録するほど高く積み上がります</p>
+          </div>
+          <div class="wall-card">
+            <div class="wall-card__head">
+              <span class="wall-card__total" id="wall-total">0</span>
+              <span class="wall-card__unit">個の前進</span>
+            </div>
+            <div id="wall" class="wall" aria-hidden="true"></div>
+            <div class="wall-legend" id="wall-legend"></div>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-card"><div class="stat-card__value" id="grow-days">0</div><div class="stat-card__label">前進した日</div></div>
+          <div class="stat-card"><div class="stat-card__value" id="grow-best">0</div><div class="stat-card__label">最長の連続（日）</div></div>
+          <div class="stat-card"><div class="stat-card__value" id="grow-since">0</div><div class="stat-card__label">始めて何日目</div></div>
+        </div>
+
+        <div class="section">
+          <div class="section__head">
+            <h3 class="section__title">月ごとの前進</h3>
+          </div>
+          <div id="month-chart" class="month-chart"></div>
+        </div>
+
+        <div class="section">
+          <div class="section__head">
+            <h3 class="section__title">改善・解決・成長の割合</h3>
+          </div>
+          <div id="kind-bars" class="bar-list"></div>
+        </div>
+
+        <div class="section">
+          <div class="section__head">
+            <h3 class="section__title">分野ごとの前進</h3>
+          </div>
+          <div id="area-bars" class="bar-list"></div>
+        </div>
+
+        <div class="section">
+          <div class="section__head">
+            <h3 class="section__title">称号</h3>
+            <p class="section__desc">前進を積み重ねるほど、称号が上がっていきます</p>
+          </div>
+          <div id="title-list" class="title-list"></div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 Yuji Nakamura. All rights reserved.</p>
+      <p><a href="https://apps.yuji-nakamura.com/" target="_blank" rel="noopener">他のアプリを見る →</a></p>
+    </footer>
+
+    <a href="about.html" class="about-btn"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="32" cy="32" r="20"/><circle cx="32" cy="22" r="1.5" fill="currentColor" stroke="none"/><line x1="32" y1="30" x2="32" y2="44"/></svg> アプリについて</a>
+    <button type="button" id="btn-fab" class="fab" aria-label="前進を記録する"><svg width="24" height="24" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" aria-hidden="true"><path d="M32 12 V52"/><path d="M12 32 H52"/></svg></button>
+    <button id="feedback-btn" class="feedback-btn" aria-label="ご意見・ご要望"><svg width="22" height="22" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-6px"><rect x="8" y="14" width="48" height="30" rx="8"/><path d="M22 44 L14 54 V44"/></svg> ご意見</button>
+  </div>
+
+  <!-- 前進の記録 -->
+  <div id="step-modal-overlay" class="dialog-overlay">
+    <form id="step-form" class="modal" novalidate>
+      <div class="modal__head">
+        <div class="modal__title" id="step-modal-title">前進を記録する</div>
+        <button type="button" id="btn-step-close" class="modal__close" aria-label="閉じる">&times;</button>
+      </div>
+      <div class="field">
+        <span class="field__label">種類</span>
+        <div id="step-kind" class="kind-seg"></div>
+      </div>
+      <div class="field">
+        <label class="field__label" for="input-step-text">きのうより、よくなったこと</label>
+        <input type="text" id="input-step-text" maxlength="60" placeholder="例：朝の支度を10分早く終えられた" required />
+        <div id="step-examples" class="filter-chips filter-chips--examples"></div>
+      </div>
+      <div class="field">
+        <span class="field__label">分野<span class="field__hint">任意</span></span>
+        <div id="step-area" class="filter-chips"></div>
+      </div>
+      <div class="field">
+        <label class="field__label" for="input-step-date">日付</label>
+        <input type="date" id="input-step-date" required />
+      </div>
+      <div class="field">
+        <label class="field__label" for="input-step-note">くわしく・気づいたこと<span class="field__hint">任意</span></label>
+        <textarea id="input-step-note" maxlength="500" placeholder="例：前の晩に服を決めておいたら、朝に迷わなくなった"></textarea>
+      </div>
+      <div class="modal__actions">
+        <button type="button" id="btn-step-delete" class="btn btn--ghost is-danger hidden modal__actions-left">削除</button>
+        <button type="button" id="btn-step-cancel" class="btn btn--ghost">キャンセル</button>
+        <button type="submit" id="btn-step-submit" class="btn btn--primary">記録する</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- 確認ダイアログ（カスタムUI） -->
+  <div id="confirm-dialog-overlay" class="dialog-overlay">
+    <div class="dialog">
+      <div class="dialog__title" id="confirm-dialog-title">削除しますか？</div>
+      <div class="dialog__text" id="confirm-dialog-text">削除すると元に戻せません。</div>
+      <div class="dialog__actions">
+        <button id="btn-confirm-cancel" class="btn btn--ghost">キャンセル</button>
+        <button id="btn-confirm-ok" class="btn btn--danger">削除する</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 要望送信モーダル -->
+  <div id="feedback-modal-overlay" class="dialog-overlay">
+    <div class="modal">
+      <div class="modal__head">
+        <div class="modal__title">ご意見・ご要望</div>
+        <button id="btn-feedback-close" class="modal__close" aria-label="閉じる">&times;</button>
+      </div>
+      <textarea id="input-feedback-message" rows="5" maxlength="2000" placeholder="ご意見・ご要望・バグ報告など、なんでもどうぞ"></textarea>
+      <div class="modal__actions">
+        <button id="btn-feedback-send" class="btn btn--primary">送信する</button>
+      </div>
+      <p class="modal__note">送信内容は開発者に届きます。個人情報は入力しないでください。</p>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>まえより前進積み重ね帳 — 機能紹介</title>
+<meta name="description" content="昨日よりも改善・解決・成長したことを毎日ワンタップでチェックして積み重ねるアプリ。カレンダーと一覧での見返し、あの日の前進、ふりかえりガチャ、累計・連続日数・称号、積み重ねの壁と月ごとのグラフで成長が見えます。">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1abc9c">
+<meta property="og:title" content="まえより前進積み重ね帳 — 機能紹介">
+<meta property="og:image" content="__URL__/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --c1: #1abc9c;
+    --c2: #16a085;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    background: #1a1a1a;
+    color: #ececec;
+    line-height: 1.7;
+  }
+  a { color: inherit; text-decoration: none; }
+  .topbar {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 24px 20px 0;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+    color: #9a9a9a;
+    transition: color .15s ease;
+  }
+  .back-link:hover { color: #fff; }
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--c1);
+    margin: 24px 20px 0;
+    border-radius: 24px;
+    padding: 64px 24px;
+    text-align: center;
+  }
+  .hero::before, .hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: #ffffff;
+    opacity: 0.07;
+    filter: blur(10px);
+  }
+  .hero::before { width: 240px; height: 240px; top: -80px; left: -60px; }
+  .hero::after { width: 300px; height: 300px; bottom: -120px; right: -80px; }
+  .badge {
+    position: relative;
+    width: 128px;
+    height: 128px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.94);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--c1);
+    box-shadow: 0 0 0 14px rgba(255,255,255,0.14);
+  }
+  .category-pill {
+    position: relative;
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    position: relative;
+    margin: 0 0 12px;
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 800;
+    color: #fff;
+  }
+  .hero p.tagline {
+    position: relative;
+    margin: 0 auto 32px;
+    max-width: 520px;
+    font-size: 17px;
+    color: rgba(255,255,255,0.88);
+  }
+  .cta {
+    position: relative;
+    display: inline-block;
+    background: #fff;
+    color: #1a1a1a;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 14px 36px;
+    border-radius: 999px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    transition: transform .15s ease;
+  }
+  .cta:hover { transform: translateY(-2px); }
+
+  .features {
+    max-width: 880px;
+    margin: 56px auto 0;
+    padding: 0 20px;
+  }
+  .features h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 24px;
+    color: #fff;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .feature-card {
+    background: #162623;
+    border: 1px solid #2a4a44;
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .feature-icon {
+    color: var(--c1);
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+  .feature-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: #fff;
+  }
+  .feature-desc {
+    font-size: 15px;
+    color: #c6ddd8;
+    margin: 0;
+  }
+
+  .steps {
+    max-width: 880px;
+    margin: 40px auto 0;
+    padding: 0 20px;
+  }
+  .steps h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 20px;
+    color: #fff;
+  }
+  .step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-top: 1px solid #2a4a44;
+  }
+  .step:first-of-type { border-top: 0; }
+  .step-num {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--c1);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step p { margin: 0; font-size: 15px; color: #d2e7e2; }
+  .step strong { color: #fff; }
+
+  .note {
+    max-width: 880px;
+    margin: 24px auto 0;
+    padding: 0 20px;
+    font-size: 13px;
+    color: #9cbfb7;
+  }
+
+  .footer-cta {
+    max-width: 880px;
+    margin: 56px auto 0;
+    padding: 0 20px 64px;
+    text-align: center;
+  }
+  .footer-cta .cta {
+    background: var(--c1);
+    color: #fff;
+    box-shadow: none;
+  }
+  .footer-links {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #9cbfb7;
+  }
+  .footer-links a { color: #9a9a9a; }
+  .footer-links a:hover { color: #fff; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="back-link" href="https://apps.yuji-nakamura.com/">← アプリ一覧に戻る</a>
+  </div>
+
+  <section class="hero">
+    <span class="category-pill">学び・成長</span>
+    <div class="badge"><svg width="72" height="72" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 50 H22 V41 H32 V32 H42 V23 H52 V50 Z"/><path d="M47 23 V10"/><path d="M47 10 L55 13.5 L47 17"/></svg></div>
+    <h1>まえより前進積み重ね帳</h1>
+    <p class="tagline">きのうより、ちょっとでもよくなったことはありませんか？ 改善・解決・成長を毎日チェックして積み重ねると、自分の成長が目に見えて、達成感を実感できます。</p>
+    <a class="cta" href="__URL__">アプリを使ってみる →</a>
+  </section>
+
+  <section class="features">
+    <h2>できること</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 34 L26 46 L50 18"/></svg></div>
+        <h3 class="feature-title">ワンタップで「前進」をチェック</h3>
+        <p class="feature-desc">「改善」「解決」「成長」のボタンをタップして、きのうよりよくなったことをひとこと。ちょっとしたことで大丈夫です。分野やくわしいメモも残せます。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="14" width="44" height="40" rx="4"/><path d="M10 26 H54"/><path d="M22 8 V18"/><path d="M42 8 V18"/><path d="M22 38 H30"/></svg></div>
+        <h3 class="feature-title">カレンダーと一覧で見返す</h3>
+        <p class="feature-desc">前進した日がカレンダーで色づき、たくさん前進した日ほど濃くなります。日付をタップすればその日の前進を、種類や分野で絞り込んで一覧で見返せます。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="22"/><path d="M32 18 V32 L42 38"/></svg></div>
+        <h3 class="feature-title">あの日の前進</h3>
+        <p class="feature-desc">1週間前・1か月前・1年前の同じ日に記録した前進を「きょう」の画面に表示。少し前の自分が積み上げてきたことに気づけます。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="16" width="40" height="32" rx="6"/><path d="M24 30 H40"/><path d="M32 22 V38"/></svg></div>
+        <h3 class="feature-title">ふりかえりガチャ</h3>
+        <p class="feature-desc">これまでの前進から1つをランダムに引いて見返せます。忘れていた小さな前進との再会が、次の一歩のはげみになります。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 50 H22 V41 H32 V32 H42 V23 H52 V50 Z"/><path d="M47 23 V10"/><path d="M47 10 L55 13.5 L47 17"/></svg></div>
+        <h3 class="feature-title">積み重ねの壁</h3>
+        <p class="feature-desc">前進1つがブロック1つ。改善・解決・成長の色のブロックが下から積み上がり、自分の積み重ねが目に見えて高くなっていきます。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8 L38 22 L54 24 L42 34 L46 50 L32 42 L18 50 L22 34 L10 24 L26 22 Z"/></svg></div>
+        <h3 class="feature-title">称号と連続日数</h3>
+        <p class="feature-desc">累計の前進数で「はじめの一歩 → 前進中 → 積み重ね名人 → 前進の達人」と称号が上がり、3日・7日・30日などの連続記録では紙吹雪でお祝いします。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg width="30" height="30" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 54 H54"/><path d="M18 54 V36"/><path d="M30 54 V24"/><path d="M42 54 V30"/></svg></div>
+        <h3 class="feature-title">成長が見えるグラフ</h3>
+        <p class="feature-desc">月ごとの前進の数、改善・解決・成長の割合、どの分野で前進しているか、最長の連続日数や始めて何日目かをまとめて確認できます。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="steps">
+    <h2>使い方</h2>
+    <div class="step">
+      <span class="step-num">1</span>
+      <p><strong>Googleでログイン</strong>：記録はあなた専用の領域に保存され、スマホとパソコンで同じデータを見られます。</p>
+    </div>
+    <div class="step">
+      <span class="step-num">2</span>
+      <p><strong>きのうより前進したことを1つ記録</strong>：「改善」「解決」「成長」からあてはまるものをタップして、ひとこと書くだけ。</p>
+    </div>
+    <div class="step">
+      <span class="step-num">3</span>
+      <p><strong>毎日つづけて積み重ねる</strong>：連続日数がのび、称号が上がり、積み重ねの壁が高くなっていきます。</p>
+    </div>
+    <div class="step">
+      <span class="step-num">4</span>
+      <p><strong>ときどき見返す</strong>：「ふりかえり」のカレンダーや、あの日の前進・ふりかえりガチャで、これまでの自分の歩みを確かめましょう。</p>
+    </div>
+  </section>
+
+  <p class="note">※ 始めたころの自分と、いまの自分を並べてくらべたいときは、姉妹アプリ「はじまりと、いま」もどうぞ。</p>
+
+  <section class="footer-cta">
+    <a class="cta" href="__URL__">今すぐ使ってみる →</a>
+    <p class="footer-links"><a href="https://apps.yuji-nakamura.com/">他のアプリも見る</a></p>
+  </section>
+</body>
+</html>
